@@ -16,7 +16,7 @@ def a(calories):
     return max([sum(c) for c in calories])
 
 def b(calories):
-    pass
+    return sum(sorted([sum(c) for c in calories], reverse=True)[:3])
 
 if __name__ == '__main__':
     calories = read_input()
