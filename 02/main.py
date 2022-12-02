@@ -16,22 +16,37 @@ def read_input():
 TIE = 3
 WIN = 6
 LOSE = 0
-def game_score(p1, p2):
-    if p1 == p2:
-        return TIE
-    if p1 == 'ROCK' and p2 == 'PAPER':
-        return WIN
-    if p1 == 'PAPER' and p2 == 'SCISSORS':
-        return WIN
-    if p1 == 'SCISSORS' and p2 == 'ROCK':
-        return WIN
-    return LOSE
 
 scores = {
     'ROCK': 1,
     'PAPER': 2,
     'SCISSORS': 3
 }
+
+rules = {
+    'ROCK': {
+        'X': 'SCISSORS',
+        'Y': 'ROCK',
+        'Z': 'PAPER'
+    },
+    'PAPER': {
+        'X': 'ROCK',
+        'Y': 'PAPER',
+        'Z': 'SCISSORS'
+    },
+    'SCISSORS': {
+        'X': 'PAPER',
+        'Y': 'SCISSORS',
+        'Z': 'ROCK'
+    }
+}
+
+def game_score(p1, p2):
+    if rules[p1]['X'] == p2:
+        return LOSE
+    if rules[p1]['Y'] == p2:
+        return TIE
+    return WIN
 
 def a(input):
     input_for_a = []
@@ -47,7 +62,11 @@ def a(input):
     return sum(s)
 
 def b(input):
-    pass
+    input_for_b = []
+    for (p1,b) in input:
+        input_for_b.append((p1, rules[p1][b]))
+    s = [scores[p2] + game_score(p1,p2) for (p1,p2) in input_for_b]
+    return sum(s)
 
 if __name__ == '__main__':
     input = read_input()
