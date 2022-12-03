@@ -21,7 +21,13 @@ def a(input):
     return total
 
 def b(input):
-    return []
+    total = 0
+    step = 3
+    for i in range(0, len(input), step):
+        (elf1, elf2, elf3) = input[i:i+step]
+        common = set(elf1).intersection(set(elf2)).intersection(set(elf3)).pop()
+        total += char_priority(common)
+    return total
 
 if __name__ == '__main__':
     input = read_input()
