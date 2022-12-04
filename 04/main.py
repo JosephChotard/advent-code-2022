@@ -20,7 +20,13 @@ def a(input):
     return count
 
 def b(input):
-    return 0
+    count = 0
+    for (p1,p2) in input:
+        if p2[0] <= p1[1] and p2[1] >= p1[0]: 
+            count += 1
+        elif p1[0] <= p2[1] and p1[1] >= p2[0]:
+            count += 1
+    return count
 
 if __name__ == '__main__':
     input = read_input()
