@@ -31,19 +31,21 @@ def parse_towers(towers_input):
                 towers[c].append(char)
     return towers
 
-def execure_operations(towers, operations):
+def execure_operations(towers, operations, flip: bool):
+    towers = [t.copy() for t in towers]
     for operation in operations:
-        towers[operation['to']-1] += towers[operation['from']-1][-operation['towers']:][::-1]
+        towers[operation['to']-1] += towers[operation['from']-1][-operation['towers']:][::-1 if flip else 1]
         towers[operation['from']-1] = towers[operation['from']-1][:-operation['towers']]
     return towers
 
 
 def a(towers, operations):
-    towers = execure_operations(towers[:], operations)
+    towers = execure_operations(towers, operations, True)
     return ''.join(tower[-1] for tower in towers)
 
 def b(towers, operations):
-    return 0
+    towers = execure_operations(towers, operations, False)
+    return ''.join(tower[-1] for tower in towers)
 
 if __name__ == '__main__':
     towers, operations = read_input()
