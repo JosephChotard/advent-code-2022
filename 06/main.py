@@ -22,20 +22,21 @@ def a(input):
 def b(input):
     return find_marker(input, 14)
 
-def asserts():
-    assert(a('bvwbjplbgvbhsrlpgdmjqwftvncz') == 5)
-    assert(a('nppdvjthqldpwncqszvftbrmjlhg') == 6)
-    assert(a('nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg') == 10)
-    assert(a('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw') == 11)
-    assert(a('mjqjpqmgbljsphdztnvjfqwrcgsmlb') == 7)
-    assert(b('mjqjpqmgbljsphdztnvjfqwrcgsmlb') == 19)
-    assert(b('bvwbjplbgvbhsrlpgdmjqwftvncz') == 23)
-    assert(b('nppdvjthqldpwncqszvftbrmjlhg') == 23)
-    assert(b('nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg') == 29)
-    assert(b('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw') == 26)
+def test_a():
+    assert a('bvwbjplbgvbhsrlpgdmjqwftvncz') == 5
+    assert a('nppdvjthqldpwncqszvftbrmjlhg') == 6
+    assert a('nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg') == 10
+    assert a('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw') == 11
+    assert a('mjqjpqmgbljsphdztnvjfqwrcgsmlb') == 7
+
+def test_b():
+    assert b('mjqjpqmgbljsphdztnvjfqwrcgsmlb') == 19
+    assert b('bvwbjplbgvbhsrlpgdmjqwftvncz') == 23
+    assert b('nppdvjthqldpwncqszvftbrmjlhg') == 23
+    assert b('nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg') == 29
+    assert b('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw') == 26
 
 if __name__ == '__main__':
     input = read_input()
-    asserts()
     print(f"A: {a(input)}")
     print(f"B: {b(input)}")
