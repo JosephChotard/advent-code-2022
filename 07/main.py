@@ -27,11 +27,11 @@ def read_input():
     return files
     
 
-def a(files):
+def a(files: defaultdict):
     return sum([size for size in files.values() if size <= 100_000])
 
-def b(files):
-    return 0
+def b(files: defaultdict):
+    return min([size for size in files.values() if size >= files.get(('/',))-40_000_000])
 
 if __name__ == '__main__':
     files = read_input()
