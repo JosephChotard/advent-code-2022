@@ -1,4 +1,4 @@
-from pprint import pprint
+import math
 
 def read_input():
     with open('09/input.txt', 'r') as f:
@@ -6,35 +6,39 @@ def read_input():
         input = [(direction, int(amount)) for [direction, amount] in input]
     return input
 
-def is_adjacent(h_pos, t_pos):
-    return abs(h_pos[0] - t_pos[0]) <= 1 and abs(h_pos[1] - t_pos[1]) <= 1
+def is_adjacent(knot_1, knot_2):
+    return abs(knot_1[0] - knot_2[0]) <= 1 and abs(knot_1[1] - knot_2[1]) <= 1
+
+move_pos = {
+    "R": (0,1),
+    "L": (0,-1),
+    "U": (1,0),
+    "D": (-1,0)
+}
+
+def move_n_knots(n: int, steps):
+    rope = [(0,0)] * n
+    visited = [set([knot]) for knot in rope]
+
+    for (dir, amount) in steps:
+        motion = move_pos[dir]
+        for _ in range(amount):
+            rope[0] = tuple(map(sum, zip(rope[0], motion)))
+            for i in range(1,n):
+                if not is_adjacent(rope[i-1], rope[i]):
+                    if rope[i][0] != rope[i-1][0]:
+                        rope[i] = (rope[i][0]+int(math.copysign(1, rope[i-1][0] - rope[i][0])), rope[i][1])
+                    if rope[i][1] != rope[i-1][1]:
+                        rope[i] = (rope[i][0], rope[i][1]+int(math.copysign(1, rope[i-1][1] - rope[i][1])))
+                visited[i].add(rope[i])
+    return len(visited[-1])
 
 def a(moves):
-    visited = set([(0,0)])
-    prev_h_pos = (0,0)
-    h_pos = (0,0)
-    t_pos = (0,0)
-    for (dir, amount) in moves:
-        match dir:
-            case "R":
-                motion = (0,1)
-            case "L":
-                motion = (0,-1)
-            case "U":
-                motion = (1,0)
-            case "D":
-                motion = (-1,0)
-        for _ in range(amount):
-            prev_h_pos = tuple(h_pos)
-            h_pos = tuple(map(sum, zip(h_pos, motion)))
-            if not is_adjacent(h_pos, t_pos):
-                visited.add(prev_h_pos)
-                t_pos = tuple(prev_h_pos)
-    return len(visited)
+    return move_n_knots(2, moves)
 
 
 def b(moves):
-    return 0
+    return move_n_knots(10, moves)
 
 if __name__ == '__main__':
     moves = read_input()
